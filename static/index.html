@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#10140f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+  <title>Xbox Remote</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <main class="shell">
+    <section class="slab" aria-label="Controller">
+      <header class="top">
+        <div class="identity">
+          <span id="led" class="led"></span>
+          <div>
+            <p id="console-name" class="name">Looking for your Xbox</p>
+            <p id="now-title" class="subtitle">Same Wi-Fi as the console</p>
+          </div>
+        </div>
+        <button id="power" class="power" type="button" aria-label="Power">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3v8"></path>
+            <path d="M7.2 6.2a7 7 0 1 0 9.6 0"></path>
+          </svg>
+        </button>
+      </header>
+
+      <p id="banner" class="banner" hidden></p>
+
+      <div class="triggers">
+        <button class="trigger" type="button" data-button="lt">LT</button>
+        <button class="trigger" type="button" data-button="rt">RT</button>
+      </div>
+      <div class="shoulders">
+        <button class="shoulder" type="button" data-button="lb">LB</button>
+        <button class="shoulder" type="button" data-button="rb">RB</button>
+      </div>
+
+      <div class="faceplate">
+        <div class="dpad" aria-label="D-pad">
+          <button type="button" data-button="up" aria-label="Up"><span></span></button>
+          <button type="button" data-button="left" aria-label="Left"><span></span></button>
+          <i></i>
+          <button type="button" data-button="right" aria-label="Right"><span></span></button>
+          <button type="button" data-button="down" aria-label="Down"><span></span></button>
+        </div>
+        <div class="abxy" aria-label="Face buttons">
+          <button type="button" class="y" data-button="y">Y</button>
+          <button type="button" class="x" data-button="x">X</button>
+          <button type="button" class="b" data-button="b">B</button>
+          <button type="button" class="a" data-button="a">A</button>
+        </div>
+      </div>
+
+      <div class="system">
+        <button type="button" data-button="view" aria-label="View">
+          <svg viewBox="0 0 24 24"><rect x="3" y="6" width="7" height="12" rx="1"></rect><rect x="14" y="6" width="7" height="12" rx="1"></rect></svg>
+        </button>
+        <button type="button" class="nexus" data-button="nexus" aria-label="Xbox">
+          <svg viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17"></path></svg>
+        </button>
+        <button type="button" data-button="menu" aria-label="Menu">
+          <svg viewBox="0 0 24 24"><path d="M5 7h14M5 12h14M5 17h14"></path></svg>
+        </button>
+      </div>
+
+      <div class="sticks">
+        <div class="stick" data-stick="left">
+          <div class="well"><i class="knob"></i></div>
+          <button type="button" data-button="l3">L3</button>
+        </div>
+        <div class="stick" data-stick="right">
+          <div class="well"><i class="knob"></i></div>
+          <button type="button" data-button="r3">R3</button>
+        </div>
+      </div>
+      <p class="hint">Buttons drive the dashboard and apps. Games still want a real controller.</p>
+    </section>
+
+    <aside class="panel">
+      <section class="card">
+        <div class="card-head">
+          <h2>Playing</h2>
+          <span id="playback" class="pill">Idle</span>
+        </div>
+        <p id="media-title" class="media-title">No media reported</p>
+        <p id="media-sub" class="media-sub"></p>
+        <input id="seek" type="range" min="0" max="1000" value="0" disabled aria-label="Seek">
+        <div class="transport">
+          <button type="button" data-media="previous" aria-label="Previous">Prev</button>
+          <button type="button" data-media="rewind" aria-label="Rewind">Rew</button>
+          <button type="button" data-media="toggle" class="play" aria-label="Play or pause">Play</button>
+          <button type="button" data-media="fastforward" aria-label="Fast forward">FF</button>
+          <button type="button" data-media="next" aria-label="Next">Next</button>
+        </div>
+        <div class="clips">
+          <button type="button" data-record="30">Save last 30s</button>
+          <button type="button" data-record="60">Save last 60s</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Type</h2>
+        <p id="text-prompt" class="media-sub">Open a text field on the Xbox, then send from here.</p>
+        <form id="text-form" class="text-row">
+          <input id="text" type="text" placeholder="Search or type" autocomplete="off" enterkeyhint="send">
+          <button type="submit">Send</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>Consoles</h2>
+          <button id="discover" type="button" class="texty">Find</button>
+        </div>
+        <ul id="consoles" class="consoles"></ul>
+        <details>
+          <summary>Xbox is off and has never been found</summary>
+          <p class="media-sub">Power-on uses the Live ID from the last time this remote saw the console. If you already know it, save it here.</p>
+          <form id="manual" class="manual">
+            <input name="name" placeholder="Name" autocomplete="off">
+            <input name="address" placeholder="IP address" inputmode="decimal" autocomplete="off">
+            <input name="liveid" placeholder="Live ID" autocapitalize="characters" autocomplete="off" required>
+            <button type="submit">Save</button>
+          </form>
+        </details>
+        <details>
+          <summary>Launch a title</summary>
+          <form id="launch" class="text-row">
+            <input id="uri" type="text" placeholder="ms-xbl-…://" autocomplete="off">
+            <button type="submit">Open</button>
+          </form>
+        </details>
+        <ol class="setup">
+          <li>Phone, laptop, and Xbox on the same Wi-Fi.</li>
+          <li>Settings → General → Power mode → Instant-on.</li>
+          <li>Settings → Devices &amp; connections → Remote features → allow any device.</li>
+        </ol>
+      </section>
+    </aside>
+  </main>
+  <p id="toast" class="toast" hidden></p>
+  <script src="/static/app.js"></script>
+</body>
+</html>
